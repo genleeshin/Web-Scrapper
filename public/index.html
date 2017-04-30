@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Scrap</title>
+</head>
+<body>
+	<ul>
+		<?php for($i=1; $i<=5; $i++): ?>
+			<li><h2><?=$cat?> <?=$page?>:<?=$i?></h2></li>
+		<?php endfor; ?>
+	</ul>
+
+	<?php if($page < 10): ?>
+		<a href="/index.php?cat=<?=$cat?>&page=<?=$next?>">Next</a>
+	<?php endif; ?>
+
+</body>
+</html>
