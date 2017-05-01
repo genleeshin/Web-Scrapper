@@ -2,6 +2,8 @@ const Xray = require('x-ray');
 
 const async = require('async');
 
+const event = require('./Event');
+
 module.exports = class Crawler{
 
 	constructor(){
@@ -30,7 +32,7 @@ module.exports = class Crawler{
 
 		async.series(funcs, function(err, result){
 			//console.log(result);
-			console.log('all done');
+			//console.log('all done');
 			resolve(op.name);
 
 		});
@@ -49,7 +51,7 @@ module.exports = class Crawler{
 	}
 
 	processData(err, obj){
-		console.log(obj);
+		event.trigger('scrap-data', obj);
 	}
 
 }

@@ -4,6 +4,11 @@ exports.db = {
 	pass: 'pass'
 };
 
+exports.listeners = [
+	{event: 'scrap-data', listener: 'OnScrapData'},
+	{event: 'scrap-error', listener: 'OnScrapError'},
+]
+
 
 exports.image = {
 	dir: '/tmp'

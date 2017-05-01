@@ -1,5 +1,5 @@
-const config = require('./config');
-const Store = require('./Store');
+const config = require('./../config');
+const Store = require('./../models/Store');
 const crawler = require('./Crawler');
 
 module.exports = class Worker{
