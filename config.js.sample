@@ -4,8 +4,8 @@ exports.knex = {
 	connection: {
 		host: 'localhost',
 		user: 'root',
-		password: 'spboss2003',
-		database: 'campaign_stores'
+		password: 'pass',
+		database: 'db_name'
 	}
 }
 
@@ -23,8 +23,6 @@ exports.image = {
 // exports.stores = [
 // 	{
 
-// 		id: 1,
-
 // 		name: 'asos',
 
 // 		root: 'li',
@@ -37,15 +35,13 @@ exports.image = {
 // 	},
 
 // 	{
-// 		id: 2,
 
 // 		name: 'argos',
 
 // 		root: 'li',
 
 // 		at: {
-// 			title: 'h2',
-// 			sku: 'p'
+// 			title: 'h2'
 // 		},
 
 // 		paginate: 'a@href'		
@@ -53,7 +49,7 @@ exports.image = {
 // ];
 
 exports.urls = {
-	Asos: ["http://localhost:3000/index.php?cat=shirt", "http://localhost:3000/index.php?cat=jeans"],
+	asos: ["http://localhost:3000/index.php?cat=shirt", "http://localhost:3000/index.php?cat=jeans"],
 
-	Argos: ["http://localhost:3000/index.php?cat=dress", "http://localhost:3000/index.php?cat=skirts"],
+	argos: ["http://localhost:3000/index.php?cat=dress", "http://localhost:3000/index.php?cat=skirts"],
 };

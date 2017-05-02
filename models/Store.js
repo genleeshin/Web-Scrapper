@@ -1,22 +1,32 @@
-const config = require('./../config');
+const config = require('./../config'),
+	db = require('./../db/db');
 
-module.exports = class Store{
+module.exports = {
 
-	constructor(){
+	stores: null,
 
-	}
-
-	getStores(){
+	getStores: function(callback){
 
 		console.log('getting stores');
 
-		this.stores = this.stores || config.stores;
+		db.select().from('stores').then(stores => {
 
-		this.stores.forEach(store => {
-			store.urls = config.urls[store.name];
+			stores.forEach(store => {
+				store.opt = JSON.parse(store.opt);
+				store.urls = config.urls[store.name];
+			});
+
+			return stores;
+
 		})
 
-		return this.stores;
+		.then( stores => {
+
+			callback(stores);
+
+		}).
+
+		finally(()=>db.destroy());
 	}
 
 }
