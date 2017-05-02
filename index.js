@@ -1,10 +1,15 @@
 const config = require('./config'),
 	event = require('./libs/Event'),
 	app = require('./App'),
-	db = require('./db/db');
+	db = require('./db/db'),
+	store = require('./models/Store');
 /**
-	-- get stores and opt from db
-	** add eventing on new data
+	-- insert products
+		-- on exists update timestamp
+	++ get stores that are not updated today
+	++ update store timestamp once crawling done
+	++ get stores and opt from db
+	++ add eventing on new data
 	-- database
 		-- store active, deactive, if active then crawl
 		-- url active, deactive, if active then crawl
@@ -14,30 +19,19 @@ const config = require('./config'),
 	-- image
 		-- get all new products and store their image
 
+	-- detect errors, e.g: site is down or ip blocked
+
 */
 
 //catch any event errors
 
 process.on('uncaughtException', (err) => {
-  console.error('Event Error: ', err);
+
+	console.error('Caught Errors');
+
+	console.error('Event Error: ', err);
 });
 
-event.register(config.listeners);
+//event.register(config.listeners);
 
 app.start();
-
-
-
-
-// db.select().from('stores').where({id: 1}).first()
-
-// .then( store => {
-
-// 	let opt = JSON.parse(store.opt);
-
-// 	console.log(opt.root);
-
-// })
-
-// .finally( ()=> db.destroy());
-

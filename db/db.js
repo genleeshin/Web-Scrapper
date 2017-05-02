@@ -36,7 +36,20 @@ module.exports = {
 		return this.getInstance()(table).where('id', id).update(data);
 	},
 
+	table: function(table){
+		return this.getInstance()(table);
+	},
+
+	now: function(){
+		return this.getInstance().raw('NOW()');
+	},
+
+	curdate: function(){
+		return this.getInstance().raw('CURDATE()');
+	},
+
 	destroy: function(){
 		this.getInstance().destroy();
+		this.knex = null;
 	}
 }

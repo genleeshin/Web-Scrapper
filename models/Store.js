@@ -7,13 +7,14 @@ module.exports = {
 
 	getStores: function(callback){
 
-		console.log('getting stores');
+		// to get store that was crawled before today
 
-		db.select().from('stores').then(stores => {
+		// where('active', 1).where('updated_at', '<', db.curdate())
+
+		db.select().from('stores').where('active', 1).then(stores => {
 
 			stores.forEach(store => {
 				store.opt = JSON.parse(store.opt);
-				store.urls = config.urls[store.name];
 			});
 
 			return stores;
@@ -24,9 +25,19 @@ module.exports = {
 
 			callback(stores);
 
-		}).
+		});
+	},
 
-		finally(()=>db.destroy());
+	updateLastCrawlTime(id, callback=null){
+
+		console.log('updating store timestamp ', id);
+
+		db.table('stores').where({id: id}).update({updated_at: db.now()})
+		.then( result => {
+			if(callback) callback(result);
+		})
+		.catch( errors => console.log('error updating'));
+
 	}
 
 }

@@ -1,7 +1,8 @@
 const config = require('./config'),
 	Worker = require('./libs/Worker'),
 	db = require('./db/db.js'),
-	store = require('./models/Store'),
+	Store = require('./models/Store'),
+	Url = require('./models/Url'),
 	crawler = require('./libs/Crawler'),
 	async = require('async'),
 	event = require('./libs/Event');
@@ -20,7 +21,7 @@ module.exports = {
 
 		this.worker = new Worker();
 
-		store.getStores(function(stores){
+		Store.getStores(function(stores){
 
 			this.stores = stores;
 
@@ -60,10 +61,10 @@ module.exports = {
 
 			console.log(data);
 
-			console.log('now waiting 1 minutes before restarting again');
+			console.log('now waiting 20 seconds before restarting again');
 
 			if(self.recurse_max>0 && self.recurse <= self.recurse_max){
-				setTimeout(()=>self.queue(), 60000);
+				setTimeout(()=>self.start(), 20000);
 			}
 		});
 	},
@@ -74,24 +75,30 @@ module.exports = {
 
 		let self = this;
 
-		store.urls.forEach( url => funcs.push(
+		Url.getStoreUrls(store.id, function(urls){
 
-			function(callback){
 
-				crawler.crawl(url, store.opt, function(data){
+			urls.forEach( url => funcs.push(
 
-					event.trigger('scrap-data', {store_id: store.id, data: data});
+				function(callback){
 
-					callback(null, true);
-				});
-			}
+					crawler.crawl(url.url, store.opt, function(data){
 
-		));
+						event.trigger('scrap-data', {store_id: store.id, data: data});
 
-		async.series(funcs, function(err, result){
-			//console.log(result);
-			//console.log('all done');
-			resolve(store.name);
+						callback(null, true);
+					});
+				}
+
+			));
+
+			async.series(funcs, function(err, result){
+				
+				Store.updateLastCrawlTime(store.id);
+
+				resolve(store.name);
+
+			});
 
 		});
 
