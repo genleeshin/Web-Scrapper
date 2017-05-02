@@ -51,5 +51,9 @@ module.exports = {
 	destroy: function(){
 		this.getInstance().destroy();
 		this.knex = null;
+	},
+
+	raw: function(query, values){
+		return this.getInstance().raw(query, values);
 	}
 }

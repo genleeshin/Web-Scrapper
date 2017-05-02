@@ -1,4 +1,4 @@
-module.exports = class OnScrapError{
+module.exports = {
 	handle(error){
 		console.log(error);
 	}

@@ -7,7 +7,7 @@ module.exports = {
 
 	getStoreUrls: function(store_id, callback){
 
-		console.log('getting store urls for ', store_id);
+		//console.log('getting store urls for ', store_id);
 
 		db.select().from('urls')
 

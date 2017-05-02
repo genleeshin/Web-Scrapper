@@ -27,7 +27,7 @@ module.exports = class Event extends EventEmitter{
 		listeners.forEach(listener => {
 			this.getInstance().listen(listener.event, function(data) {
 
-				(new (require('./../listeners/' + listener.listener))()).handle(data);
+				(require(listener.listener)).handle(data);
 
 			});
 		});

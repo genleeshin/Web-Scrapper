@@ -84,7 +84,7 @@ module.exports = {
 
 					crawler.crawl(url.url, store.opt, function(data){
 
-						event.trigger('scrap-data', {store_id: store.id, data: data});
+						event.trigger('scrap-data', {store_id: store.id, items: data});
 
 						callback(null, true);
 					});
